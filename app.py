@@ -1,7 +1,5 @@
 import streamlit as st
-
 from crew import run_research
-
 
 # ============================================================
 # PAGE CONFIG
@@ -13,7 +11,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
 
 # ============================================================
 # CUSTOM CSS
@@ -27,237 +24,257 @@ st.markdown(
 
     .stApp {
         background:
-            radial-gradient(
-                circle at 15% 10%,
-                rgba(37, 99, 235, 0.08),
-                transparent 30%
-            ),
-            radial-gradient(
-                circle at 85% 15%,
-                rgba(14, 165, 233, 0.08),
-                transparent 30%
-            ),
-            #f8fafc;
+            radial-gradient(circle at 10% 0%, rgba(59, 130, 246, 0.08), transparent 28%),
+            radial-gradient(circle at 90% 10%, rgba(14, 165, 233, 0.07), transparent 25%),
+            #f7f9fc;
+        color: #172033;
     }
 
-    .main .block-container {
+    .block-container {
         max-width: 1250px;
         padding-top: 2rem;
         padding-bottom: 4rem;
     }
 
+    /* ---------- SIDEBAR ---------- */
 
-    /* ---------- HEADER ---------- */
+    section[data-testid="stSidebar"] {
+        background: #ffffff;
+        border-right: 1px solid #e7ebf2;
+    }
 
-    .hero {
+    section[data-testid="stSidebar"] .block-container {
+        padding-top: 2rem;
+    }
+
+    /* ---------- HERO ---------- */
+
+    .hero-wrapper {
         background: linear-gradient(
             135deg,
             #ffffff 0%,
-            #f0f7ff 100%
+            #f5f9ff 55%,
+            #eef7ff 100%
         );
-
-        border: 1px solid #dbeafe;
-        border-radius: 24px;
-
-        padding: 34px 38px;
-
-        margin-bottom: 24px;
-
-        box-shadow:
-            0 12px 35px rgba(15, 23, 42, 0.07);
+        border: 1px solid #e1eaf5;
+        border-radius: 28px;
+        padding: 48px 48px 42px 48px;
+        margin-bottom: 28px;
+        box-shadow: 0 15px 45px rgba(30, 64, 175, 0.08);
+        position: relative;
+        overflow: hidden;
     }
 
-    .hero-title {
-        font-size: 42px;
-        font-weight: 800;
-        letter-spacing: -1.5px;
-        color: #0f172a;
-        margin-bottom: 8px;
-    }
-
-    .hero-subtitle {
-        font-size: 17px;
-        line-height: 1.6;
-        color: #64748b;
-        max-width: 800px;
+    .hero-wrapper::after {
+        content: "";
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.06);
+        right: -80px;
+        top: -100px;
     }
 
     .badge {
         display: inline-block;
-
-        background: #dbeafe;
-        color: #1d4ed8;
-
+        padding: 7px 14px;
         border-radius: 999px;
-
-        padding: 6px 13px;
-
-        font-size: 13px;
+        background: #eaf3ff;
+        color: #1769d1;
+        border: 1px solid #cfe3ff;
+        font-size: 12px;
         font-weight: 700;
-
-        margin-bottom: 14px;
+        letter-spacing: 0.8px;
+        margin-bottom: 18px;
     }
 
+    .hero-title {
+        font-size: 46px;
+        line-height: 1.08;
+        font-weight: 800;
+        color: #10213f;
+        margin-bottom: 15px;
+        letter-spacing: -1.5px;
+    }
+
+    .hero-subtitle {
+        max-width: 850px;
+        font-size: 17px;
+        line-height: 1.7;
+        color: #5b6b82;
+    }
+
+    /* ---------- SECTION TITLES ---------- */
+
+    .section-title {
+        font-size: 25px;
+        font-weight: 750;
+        color: #17233b;
+        margin-top: 30px;
+        margin-bottom: 7px;
+    }
+
+    .section-subtitle {
+        color: #718096;
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
 
     /* ---------- AGENT CARDS ---------- */
 
     .agent-card {
-        background: white;
-
-        border: 1px solid #e2e8f0;
-
+        background: #ffffff;
+        border: 1px solid #e6ebf2;
         border-radius: 18px;
-
-        padding: 17px;
-
-        min-height: 118px;
-
-        box-shadow:
-            0 5px 18px rgba(15, 23, 42, 0.045);
+        padding: 20px;
+        min-height: 150px;
+        box-shadow: 0 7px 22px rgba(15, 23, 42, 0.045);
+        transition: all 0.2s ease;
     }
 
-    .agent-active {
-        border: 2px solid #2563eb;
-
-        background:
-            linear-gradient(
-                135deg,
-                #eff6ff,
-                #ffffff
-            );
-
-        box-shadow:
-            0 8px 28px rgba(37, 99, 235, 0.14);
+    .agent-card:hover {
+        transform: translateY(-2px);
+        border-color: #c8dcf7;
+        box-shadow: 0 12px 30px rgba(30, 64, 175, 0.09);
     }
 
-    .agent-done {
-        border-color: #bbf7d0;
-        background: #f0fdf4;
-    }
-
-    .agent-icon {
-        font-size: 25px;
+    .agent-number {
+        font-size: 12px;
+        font-weight: 800;
+        color: #3b82f6;
+        letter-spacing: 1px;
         margin-bottom: 8px;
     }
 
     .agent-name {
-        font-size: 15px;
+        font-size: 18px;
         font-weight: 750;
-        color: #0f172a;
+        color: #17233b;
+        margin-bottom: 8px;
     }
 
-    .agent-status {
-        font-size: 12px;
-        margin-top: 6px;
-        color: #64748b;
-    }
-
-
-    /* ---------- CURRENT AGENT ---------- */
-
-    .working-box {
-        background: linear-gradient(
-            135deg,
-            #1d4ed8,
-            #2563eb
-        );
-
-        border-radius: 18px;
-
-        padding: 18px 22px;
-
-        color: white;
-
-        margin: 20px 0;
-
-        box-shadow:
-            0 10px 28px rgba(37, 99, 235, 0.22);
-    }
-
-    .working-label {
-        font-size: 12px;
-        opacity: 0.8;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 700;
-    }
-
-    .working-agent {
-        font-size: 23px;
-        font-weight: 800;
-        margin-top: 3px;
-    }
-
-
-    /* ---------- REPORT ---------- */
-
-    .report-header {
-        margin-top: 30px;
-        margin-bottom: 12px;
-    }
-
-
-    /* ---------- SIDEBAR ---------- */
-
-    [data-testid="stSidebar"] {
-        background: #ffffff;
-
-        border-right: 1px solid #e2e8f0;
-    }
-
-    .sidebar-title {
-        font-size: 21px;
-        font-weight: 800;
-        color: #0f172a;
-    }
-
-    .sidebar-text {
-        color: #64748b;
+    .agent-description {
         font-size: 13px;
-        line-height: 1.6;
+        line-height: 1.55;
+        color: #6b778c;
     }
 
+    /* ---------- INPUT ---------- */
+
+    .question-label {
+        font-size: 19px;
+        font-weight: 700;
+        color: #17233b;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        border-radius: 14px !important;
+    }
+
+    /* ---------- STATUS ---------- */
+
+    .status-box {
+        background: #ffffff;
+        border: 1px solid #e5eaf1;
+        border-radius: 16px;
+        padding: 18px 20px;
+        margin-top: 18px;
+        margin-bottom: 20px;
+    }
+
+    .status-title {
+        font-size: 14px;
+        font-weight: 750;
+        color: #263650;
+        margin-bottom: 8px;
+    }
+
+    .status-text {
+        font-size: 13px;
+        color: #718096;
+    }
+
+    /* ---------- RESULT ---------- */
+
+    .result-header {
+        background: linear-gradient(135deg, #10213f, #174a85);
+        color: white;
+        padding: 24px 28px;
+        border-radius: 18px 18px 0 0;
+        margin-top: 25px;
+    }
+
+    .result-header-title {
+        font-size: 23px;
+        font-weight: 750;
+    }
+
+    .result-header-subtitle {
+        font-size: 13px;
+        opacity: 0.8;
+        margin-top: 5px;
+    }
 
     /* ---------- BUTTON ---------- */
 
     .stButton > button {
         border-radius: 12px;
-
-        min-height: 48px;
-
-        font-weight: 700;
-
         border: none;
-
-        background: #2563eb;
-
+        background: linear-gradient(135deg, #1769d1, #2789ed);
         color: white;
-
-        box-shadow:
-            0 6px 18px rgba(37, 99, 235, 0.18);
+        font-weight: 700;
+        padding: 0.65rem 1.3rem;
+        min-height: 48px;
+        box-shadow: 0 7px 18px rgba(37, 99, 235, 0.20);
     }
 
     .stButton > button:hover {
-        background: #1d4ed8;
-        border: none;
+        background: linear-gradient(135deg, #1259b4, #1878d7);
+        color: white;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    .footer {
+        text-align: center;
+        color: #8a96a8;
+        font-size: 12px;
+        margin-top: 55px;
+        padding-top: 20px;
+        border-top: 1px solid #e7ebf2;
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 768px) {
+
+        .block-container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .hero-wrapper {
+            padding: 32px 24px;
+            border-radius: 22px;
+        }
+
+        .hero-title {
+            font-size: 34px;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+        }
+
     }
 
     </style>
     """,
     unsafe_allow_html=True,
 )
-
-
-# ============================================================
-# SESSION STATE
-# ============================================================
-
-if "research_started" not in st.session_state:
-    st.session_state.research_started = False
-
-if "report" not in st.session_state:
-    st.session_state.report = None
-
 
 # ============================================================
 # SIDEBAR
@@ -266,49 +283,111 @@ if "report" not in st.session_state:
 with st.sidebar:
 
     st.markdown(
-        '<div class="sidebar-title">🔬 Research Lab</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
         """
-        <div class="sidebar-text">
-        A multi-agent research team powered by CrewAI
-        and Groq GPT-OSS 120B.
+        <div style="
+            font-size:26px;
+            font-weight:800;
+            color:#10213f;
+            margin-bottom:4px;
+        ">
+            🔬 Research Lab
+        </div>
+
+        <div style="
+            color:#718096;
+            font-size:13px;
+            line-height:1.5;
+            margin-bottom:25px;
+        ">
+            A specialized multi-agent research team powered by AI.
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.divider()
+    st.markdown(
+        """
+        <div style="
+            font-size:13px;
+            font-weight:700;
+            color:#34445d;
+            margin-bottom:12px;
+        ">
+            YOUR AI RESEARCH TEAM
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    st.markdown("### Research Team")
+    sidebar_agents = [
+        ("01", "Research Manager", "Breaks the question into research tasks."),
+        ("02", "Web Researcher", "Finds current web information."),
+        ("03", "Academic Researcher", "Investigates papers and evidence."),
+        ("04", "Industry Researcher", "Studies real-world applications."),
+        ("05", "Research Synthesizer", "Combines findings into one report."),
+    ]
 
-    st.markdown("🧭 **Research Manager**")
-    st.caption("Plans the investigation")
+    for number, name, description in sidebar_agents:
 
-    st.markdown("🌐 **Web Researcher**")
-    st.caption("Finds current web evidence")
+        st.markdown(
+            f"""
+            <div style="
+                padding:12px;
+                margin-bottom:9px;
+                background:#f8fafc;
+                border:1px solid #e7edf5;
+                border-radius:12px;
+            ">
+                <div style="
+                    font-size:10px;
+                    font-weight:800;
+                    color:#3b82f6;
+                    margin-bottom:3px;
+                ">
+                    AGENT {number}
+                </div>
 
-    st.markdown("🎓 **Academic Researcher**")
-    st.caption("Investigates scholarly evidence")
+                <div style="
+                    font-size:13px;
+                    font-weight:700;
+                    color:#263650;
+                ">
+                    {name}
+                </div>
 
-    st.markdown("🏢 **Industry Researcher**")
-    st.caption("Investigates real-world applications")
+                <div style="
+                    font-size:11px;
+                    color:#7a8799;
+                    margin-top:3px;
+                    line-height:1.4;
+                ">
+                    {description}
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    st.markdown("✍️ **Research Synthesizer**")
-    st.caption("Combines and verifies findings")
-
-    st.divider()
-
-    st.caption("Model")
-    st.code("GPT-OSS 120B", language=None)
-
-    st.caption("Framework")
-    st.code("CrewAI", language=None)
-
-    st.caption("Research Tool")
-    st.code("Groq Browser Search", language=None)
+    st.markdown(
+        """
+        <div style="
+            margin-top:25px;
+            padding:14px;
+            background:#eef7ff;
+            border:1px solid #d7eaff;
+            border-radius:12px;
+            font-size:12px;
+            color:#42617f;
+            line-height:1.5;
+        ">
+            <b>How it works</b><br><br>
+            Your question is passed through multiple specialized agents.
+            Each agent researches a different aspect before the final
+            report is created.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 # ============================================================
@@ -317,7 +396,7 @@ with st.sidebar:
 
 st.markdown(
     """
-    <div class="hero">
+    <div class="hero-wrapper">
 
         <div class="badge">
             MULTI-AGENT RESEARCH SYSTEM
@@ -340,53 +419,71 @@ st.markdown(
 
 
 # ============================================================
-# RESEARCH INPUT
+# AGENT TEAM
 # ============================================================
 
-st.markdown("### What should the research team investigate?")
+st.markdown(
+    """
+    <div class="section-title">
+        Meet Your Research Team
+    </div>
 
-question = st.text_area(
-    label="Research question",
-    placeholder=(
-        "Example: What are the latest approaches to Retrieval-Augmented "
-        "Generation and how are companies using them?"
-    ),
-    height=130,
-    label_visibility="collapsed",
+    <div class="section-subtitle">
+        Each agent has a specialized responsibility in the research workflow.
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
-
-# ============================================================
-# AGENT DISPLAY
-# ============================================================
-
-st.markdown("### Research Team")
-
-agent_data = [
-    ("🧭", "Research Manager", "Planning"),
-    ("🌐", "Web Researcher", "Web evidence"),
-    ("🎓", "Academic Researcher", "Academic evidence"),
-    ("🏢", "Industry Researcher", "Industry evidence"),
-    ("✍️", "Research Synthesizer", "Final report"),
+agents = [
+    (
+        "01",
+        "Research Manager",
+        "Understands your question and creates a focused research plan.",
+    ),
+    (
+        "02",
+        "Web Researcher",
+        "Searches the live web for current and relevant information.",
+    ),
+    (
+        "03",
+        "Academic Researcher",
+        "Looks for academic evidence, scientific studies, and papers.",
+    ),
+    (
+        "04",
+        "Industry Researcher",
+        "Investigates companies, products, trends, and real-world use.",
+    ),
+    (
+        "05",
+        "Research Synthesizer",
+        "Combines the findings into a clear and structured report.",
+    ),
 ]
 
-cols = st.columns(5)
+columns = st.columns(5)
 
-for col, (icon, name, description) in zip(cols, agent_data):
+for column, agent in zip(columns, agents):
 
-    with col:
+    number, name, description = agent
+
+    with column:
 
         st.markdown(
             f"""
             <div class="agent-card">
 
-                <div class="agent-icon">{icon}</div>
+                <div class="agent-number">
+                    AGENT {number}
+                </div>
 
                 <div class="agent-name">
                     {name}
                 </div>
 
-                <div class="agent-status">
+                <div class="agent-description">
                     {description}
                 </div>
 
@@ -397,46 +494,67 @@ for col, (icon, name, description) in zip(cols, agent_data):
 
 
 # ============================================================
-# START
+# QUESTION INPUT
 # ============================================================
 
-st.write("")
+st.markdown(
+    """
+    <div class="question-label">
+        What would you like to research?
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-start = st.button(
-    "🚀  Start Research",
-    use_container_width=True,
-    type="primary",
+question = st.text_area(
+    label="Research Question",
+    placeholder=(
+        "Example: How is generative AI changing software engineering "
+        "jobs, and what skills will become important over the next 5 years?"
+    ),
+    height=150,
+    label_visibility="collapsed",
 )
 
 
 # ============================================================
-# RUN CREW
+# START BUTTON
 # ============================================================
 
-if start:
+start_research = st.button(
+    "🚀 Start Multi-Agent Research",
+    use_container_width=True,
+)
+
+
+# ============================================================
+# RUN RESEARCH
+# ============================================================
+
+if start_research:
 
     if not question.strip():
 
-        st.warning(
-            "Please enter a research question first."
-        )
+        st.warning("Please enter a research question first.")
 
     else:
 
-        st.session_state.research_started = True
+        # ----------------------------------------------------
+        # STATUS AREA
+        # ----------------------------------------------------
 
         st.markdown(
             """
-            <div class="working-box">
-
-                <div class="working-label">
-                    CURRENTLY WORKING
+            <div class="status-box">
+                <div class="status-title">
+                    🔄 Research team is working
                 </div>
 
-                <div class="working-agent">
-                    🧠 Research team is investigating your question...
+                <div class="status-text">
+                    Your question is being analyzed by the multi-agent system.
+                    This may take a little while while the agents research
+                    different sources.
                 </div>
-
             </div>
             """,
             unsafe_allow_html=True,
@@ -446,76 +564,84 @@ if start:
 
         status = st.empty()
 
+        status.info("🧠 Research Manager is creating the research plan...")
+        progress.progress(15)
+
         try:
 
-            status.info(
-                "🧭 Research Manager is planning the investigation..."
-            )
-
-            progress.progress(10)
-
-            status.info(
-                "🌐 Web Researcher is gathering current web evidence..."
-            )
-
+            status.info("🌐 Web Researcher is investigating current information...")
             progress.progress(30)
 
-            status.info(
-                "🎓 Academic Researcher is investigating scholarly evidence..."
-            )
-
+            status.info("🎓 Academic Researcher is examining research evidence...")
             progress.progress(50)
 
-            status.info(
-                "🏢 Industry Researcher is investigating real-world applications..."
-            )
-
+            status.info("🏢 Industry Researcher is investigating real-world applications...")
             progress.progress(70)
-
-            status.info(
-                "✍️ Research Synthesizer is verifying and writing the report..."
-            )
-
-            progress.progress(85)
 
             result = run_research(question)
 
+            status.info("🧩 Research Synthesizer is preparing the final report...")
+            progress.progress(90)
+
             progress.progress(100)
 
-            status.success(
-                "✅ Research completed successfully."
+            status.success("✅ Research completed successfully.")
+
+            # ------------------------------------------------
+            # RESULT
+            # ------------------------------------------------
+
+            st.markdown(
+                """
+                <div class="result-header">
+
+                    <div class="result-header-title">
+                        📊 Research Report
+                    </div>
+
+                    <div class="result-header-subtitle">
+                        Synthesized from the work of the multi-agent research team
+                    </div>
+
+                </div>
+                """,
+                unsafe_allow_html=True,
             )
 
-            st.session_state.report = str(result)
+            st.markdown(result)
+
+            # ------------------------------------------------
+            # DOWNLOAD
+            # ------------------------------------------------
+
+            st.download_button(
+                label="⬇️ Download Research Report",
+                data=result,
+                file_name="research_report.md",
+                mime="text/markdown",
+                use_container_width=True,
+            )
 
         except Exception as e:
 
             progress.empty()
 
-            status.error(
-                "Research failed. Please check the error below."
+            status.error("❌ Research failed.")
+
+            st.error(
+                f"Something went wrong while running the research team:\n\n{e}"
             )
 
-            st.exception(e)
-
 
 # ============================================================
-# FINAL REPORT
+# FOOTER
 # ============================================================
 
-if st.session_state.report:
-
-    st.markdown(
-        '<div class="report-header"><h2>📑 Research Report</h2></div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(st.session_state.report)
-
-    st.download_button(
-        label="⬇️ Download Report",
-        data=st.session_state.report,
-        file_name="research_report.md",
-        mime="text/markdown",
-        use_container_width=True,
-    )
+st.markdown(
+    """
+    <div class="footer">
+        Research Intelligence Lab · Multi-Agent AI Research System
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
